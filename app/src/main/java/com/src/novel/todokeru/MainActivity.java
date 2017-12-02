@@ -1,30 +1,13 @@
 package com.src.novel.todokeru;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.AdvertiseCallback;
-import android.bluetooth.le.AdvertiseData;
-import android.bluetooth.le.AdvertiseSettings;
-import android.bluetooth.le.BluetoothLeAdvertiser;
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.src.novel.todokeru.databinding.ActivityMainBinding;
 
-import java.util.UUID;
-
-import timber.log.Timber;
-
 public class MainActivity extends AppCompatActivity {
-
-    // Local Bluetooth adapter
-    private BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Transit.setting(MainActivity.this);
+                binding.flMenu.close(true);
             }
         });
 
@@ -46,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Transit.message(MainActivity.this);
+                binding.flMenu.close(true);
             }
         });
 
@@ -54,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Transit.search(MainActivity.this);
+                binding.flMenu.close(true);
             }
         });
 
@@ -62,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Transit.favorite(MainActivity.this);
+                binding.flMenu.close(true);
             }
         });
+
+        Transit.search(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mBluetoothAdapter.cancelDiscovery();
     }
 }

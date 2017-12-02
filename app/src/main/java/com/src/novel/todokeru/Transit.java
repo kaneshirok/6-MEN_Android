@@ -30,6 +30,7 @@ public class Transit {
     public static void transit(FragmentActivity activity, Fragment fragment){
         FragmentManager manager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.container, fragment).commit();
     }
 }

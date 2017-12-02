@@ -5,6 +5,7 @@
 
     <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.src.novel.todokeru.MainActivity">
@@ -22,65 +23,57 @@
             android:gravity="right|bottom"
             android:orientation="horizontal">
 
-            <!--<Button-->
-                <!--android:id="@+id/setting"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="設定"/>-->
-
-            <!--<Button-->
-                <!--android:id="@+id/message"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="メッセージ"/>-->
-
-            <!--<Button-->
-                <!--android:id="@+id/search"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="検索"/>-->
-
-            <!--<Button-->
-                <!--android:id="@+id/favorite"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="お気にいり"/>-->
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/fl_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp" >
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:menu_colorNormal="@color/colorPrimary"
+                app:menu_colorPressed="@color/colorPrimaryDark"
+                app:menu_colorRipple="@color/colorAccent">
 
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fl_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/setting"
-                />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fl_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_white"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_label="設定"/>
 
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fl_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/message"
-                 />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fl_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mail_outline_black"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_label="メッセージ"/>
 
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fl_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/search"
-                />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fl_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_perm_identity_white"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_label="お気に入りユーザー"/>
 
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fl_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/favorite"
-                />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fl_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_label="ユーザー検索"/>
 
             </com.github.clans.fab.FloatingActionMenu>
         </LinearLayout>

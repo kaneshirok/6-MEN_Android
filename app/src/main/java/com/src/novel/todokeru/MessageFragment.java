@@ -1,21 +1,31 @@
 package com.src.novel.todokeru;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.src.novel.todokeru.databinding.FragmentMessageBinding;
+
 
 public class MessageFragment extends BaseFragment {
 
+    FragmentMessageBinding mBinding;
+    private MessageAdapter mAdapter;
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_message, container, false);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new MessageAdapter();
+        mBinding.list.setAdapter(mAdapter);
     }
 }
