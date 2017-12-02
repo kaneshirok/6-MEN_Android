@@ -14,7 +14,6 @@ import com.src.novel.todokeru.model.Datum;
 import com.src.novel.todokeru.model.User;
 
 /**
- * 物件詳細お気に入りPopupWindow
  *
  * @author pdc-k-kamiya on 2015/09/18.
  */

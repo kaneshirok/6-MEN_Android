@@ -57,7 +57,7 @@
                     android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ひとこと"/>
+                    android:text="6-MENをよろしくね！！！"/>
 
             </LinearLayout>
 
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="ああああああああああ\nああああああああああ\nああああああああああ\nああああああああああ"/>
+            android:text="精一杯頑張ってつくりましたー！！"/>
 
         <TextView
             android:layout_width="match_parent"

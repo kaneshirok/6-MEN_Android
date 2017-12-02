@@ -6,18 +6,18 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.src.novel.todokeru.model.Datum;
+
 /**
  * Created by pdc-k-kamiya on 2017/12/02.
  */
 
 public class Transit {
 
-    public static void setting(FragmentActivity activity){
-        transit(activity, new SettingFragment(), null);
-    }
-
-    public static void setting(FragmentActivity activity, Bundle bundle){
-        transit(activity, new FavoriteFragment(), bundle);
+    public static void setting(FragmentActivity activity, Datum datum){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Datum.class.getName(), datum);
+        transit(activity, new SettingFragment(), bundle);
     }
 
     public static void message(FragmentActivity activity){
@@ -45,11 +45,14 @@ public class Transit {
     }
 
     public static void map(FragmentActivity activity){
-        transit(activity, new MapFragment(), null);
+        map(activity, null);
     }
 
     public static void map(FragmentActivity activity, Bundle bundle){
-        transit(activity, new MapFragment(), bundle);
+        FragmentManager manager = activity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.add(R.id.container, new MapFragment()).commit();
     }
 
     public static void transit(FragmentActivity activity, Fragment fragment, Bundle bundle){
