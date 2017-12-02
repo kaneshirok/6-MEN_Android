@@ -45,11 +45,14 @@ public class Transit {
     }
 
     public static void map(FragmentActivity activity){
-        transit(activity, new MapFragment(), null);
+        map(activity, null);
     }
 
     public static void map(FragmentActivity activity, Bundle bundle){
-        transit(activity, new MapFragment(), bundle);
+        FragmentManager manager = activity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.add(R.id.container, new MapFragment()).commit();
     }
 
     public static void transit(FragmentActivity activity, Fragment fragment, Bundle bundle){
