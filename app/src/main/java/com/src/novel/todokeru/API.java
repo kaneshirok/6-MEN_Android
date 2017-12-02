@@ -1,9 +1,13 @@
 package com.src.novel.todokeru;
 
 import com.src.novel.todokeru.model.User;
+import com.src.novel.todokeru.post.MessagePost;
+import com.src.novel.todokeru.post.UserPost;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -20,6 +24,15 @@ public interface API {
     @GET("top")
     Call<User> getTop();
 
-//    @GET("/top")
-//    Call<List<Widget>> postTop();
+    @POST("/top")
+    Call<User> postTop(@Body UserPost post);
+
+    @GET("/message")
+    Call<User> getMessage(@Query("user_id") int user_id);
+
+    @POST("/message")
+    Call<User> postMessage(@Body MessagePost post);
+
+    @POST("/tags")
+    Call<User> getTags();
 }

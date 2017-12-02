@@ -44,12 +44,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 import com.src.novel.todokeru.custom.SearchPopupWindow;
 import com.src.novel.todokeru.databinding.FragmentMapBinding;
 import com.src.novel.todokeru.databinding.MessageSendBinding;
 import com.src.novel.todokeru.model.Datum;
 import com.src.novel.todokeru.model.User;
+import com.src.novel.todokeru.post.MessagePost;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -67,6 +69,8 @@ public class MapFragment extends BaseFragment implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
+    public static Datum mSelectData;
 
     /**
      * Constant used in the location settings dialog.
@@ -243,7 +247,7 @@ public class MapFragment extends BaseFragment implements
                     window.setMessage(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Datum datum = (Datum) v.getTag();
+                            final Datum datum = (Datum) v.getTag();
                             window.dismiss();
 
                             final MessageSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.message_send, null, false);
@@ -256,7 +260,7 @@ public class MapFragment extends BaseFragment implements
                                     if (binding.text.getText() != null) {
                                         String text = binding.text.getText().toString();
                                         if (!text.isEmpty()) {
-                                            sendMessage(text);
+                                            sendMessage(datum, text);
                                         }
                                     }
 
@@ -284,7 +288,7 @@ public class MapFragment extends BaseFragment implements
                                         TextView textView = (TextView) v;
                                         if(textView.getText() != null){
                                             String text = textView.getText().toString();
-                                            sendMessage(text);
+                                            sendMessage(datum, text);
                                         }
                                     }
                                 });
@@ -307,8 +311,19 @@ public class MapFragment extends BaseFragment implements
         });
     }
 
-    private void sendMessage(String text){
-
+    private void sendMessage(Datum datum, String text){
+        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(API.BASE_URL).build();
+        API api = retrofit.create(API.class);
+        MessagePost messagePost = new MessagePost();
+        messagePost.setMessage(text);
+        messagePost.setSend_user_id(datum.getUserId());
+        messagePost.setUser_id(Prefs.getInt(Const.USER_ID.name(), -1));
+        api.postMessage(messagePost).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {}
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {}
+        });
     }
 
     /**
@@ -368,8 +383,13 @@ public class MapFragment extends BaseFragment implements
 
         if (mUser != null) {
             for (Datum datum : mUser.getData()) {
-                LatLng userLetLng = new LatLng(Double.parseDouble(datum.getLatitude()), Double.parseDouble(datum.getLongitude()));
-                mGoogleMap.addMarker(new MarkerOptions().position(userLetLng).title(datum.getUserName()));
+                try{
+                    LatLng userLetLng = new LatLng(Double.parseDouble(datum.getLatitude()), Double.parseDouble(datum.getLongitude()));
+                    mGoogleMap.addMarker(new MarkerOptions().position(userLetLng).title(datum.getUserName()));
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         }
     }

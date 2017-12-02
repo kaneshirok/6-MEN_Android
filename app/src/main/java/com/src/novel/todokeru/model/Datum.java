@@ -10,7 +10,7 @@ public class Datum implements Serializable{
 
     @SerializedName("user_id")
     @Expose
-    private float userId;
+    private int userId;
     @SerializedName("longitude")
     @Expose
     private String longitude;
@@ -30,11 +30,11 @@ public class Datum implements Serializable{
     @Expose
     private String userImage;
 
-    public float getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(float userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
