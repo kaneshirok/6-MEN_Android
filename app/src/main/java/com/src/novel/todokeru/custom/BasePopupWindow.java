@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 /**
- * PopupWindow
- *
- * @author pdc-k-kamiya on 2015/07/13.
  */
 public abstract class BasePopupWindow extends PopupWindow {
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.src.novel.todokeru.databinding.FragmentSettingBinding;
+import com.src.novel.todokeru.model.Datum;
 
 
 public class SettingFragment extends BaseFragment {
@@ -25,7 +26,10 @@ public class SettingFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Picasso.with(getContext()).load("https://www.pakutaso.com/assets_c/2016/02/model_akanesaya-thumb-320x320-20922.jpg")
+        Datum datum = (Datum) getArguments().getSerializable(Datum.class.getName());
+
+        mBinding.title.setText(datum.getUserName());
+        Picasso.with(getContext()).load(datum.getUserImage())
                 .transform(new PicassoTransform()).into(mBinding.image);
     }
 }

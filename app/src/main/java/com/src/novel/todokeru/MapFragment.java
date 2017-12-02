@@ -165,7 +165,11 @@ public class MapFragment extends BaseFragment implements
         mBinding.flSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Transit.setting(getActivity());
+
+                Datum datum = new Datum();
+                datum.setUserName("6-MEN");
+                datum.setUserImage("https://www.pakutaso.com/assets_c/2016/02/model_akanesaya-thumb-320x320-20922.jpg");
+                Transit.setting(getActivity(), datum);
                 mBinding.flMenu.close(true);
             }
         });
@@ -239,7 +243,6 @@ public class MapFragment extends BaseFragment implements
                     window.setMessage(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // profile
                             Datum datum = (Datum) v.getTag();
                             window.dismiss();
 
@@ -292,9 +295,10 @@ public class MapFragment extends BaseFragment implements
                     window.setProfile(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Datum datum = (Datum) v.getTag();
                             // message
                             window.dismiss();
+                            Datum datum = (Datum) v.getTag();
+                            Transit.setting(getActivity(), datum);
                         }
                     });
                     window.show();
