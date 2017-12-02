@@ -52,7 +52,7 @@
                     android:id="@+id/thumb_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/thumb_up_selected"/>
+                    android:src="@drawable/thumb_up_out"/>
 
                 <Space
                     android:layout_width="10dp"
@@ -62,7 +62,7 @@
                     android:id="@+id/thumb_down"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/thumb_down_selected"/>
+                    android:src="@drawable/thumb_down_out"/>
 
                 <Space
                     android:layout_width="10dp"
@@ -72,7 +72,7 @@
                     android:id="@+id/favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/favorite_selected"/>
+                    android:src="@drawable/favorite_out"/>
 
                 <Space
                     android:layout_width="10dp"
@@ -82,7 +82,7 @@
                     android:id="@+id/mabu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mabu_selected"/>
+                    android:src="@drawable/mabu_out"/>
 
 
             </LinearLayout>

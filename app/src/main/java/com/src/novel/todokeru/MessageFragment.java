@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.AdapterView;
 
 import com.src.novel.todokeru.databinding.FragmentMessageBinding;
 import com.src.novel.todokeru.model.Message;
@@ -55,6 +56,11 @@ public class MessageFragment extends BaseFragment {
         mAdapter = new MessageAdapter(mMessage);
 
         mBinding.list.setAdapter(mAdapter);
+        mBinding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+        });
     }
 }
