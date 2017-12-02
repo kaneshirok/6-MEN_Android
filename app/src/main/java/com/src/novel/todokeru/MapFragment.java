@@ -2,6 +2,7 @@ package com.src.novel.todokeru;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -11,10 +12,12 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -41,8 +44,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 import com.src.novel.todokeru.custom.SearchPopupWindow;
 import com.src.novel.todokeru.databinding.FragmentMapBinding;
+import com.src.novel.todokeru.databinding.MessageSendBinding;
 import com.src.novel.todokeru.model.Datum;
 import com.src.novel.todokeru.model.User;
 
@@ -56,6 +61,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
+import static android.databinding.DataBindingUtil.inflate;
 
 public class MapFragment extends BaseFragment implements
         GoogleApiClient.ConnectionCallbacks,
@@ -135,7 +141,7 @@ public class MapFragment extends BaseFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false);
+        mBinding = inflate(inflater, R.layout.fragment_map, container, false);
         return mBinding.getRoot();
     }
 
@@ -236,6 +242,51 @@ public class MapFragment extends BaseFragment implements
                             // profile
                             Datum datum = (Datum) v.getTag();
                             window.dismiss();
+
+                            final MessageSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.message_send, null, false);
+                            ;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle);
+                            builder.setView(binding.getRoot());
+                            builder.setPositiveButton("送信", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (binding.text.getText() != null) {
+                                        String text = binding.text.getText().toString();
+                                        if (!text.isEmpty()) {
+                                            sendMessage(text);
+                                        }
+                                    }
+
+                                }
+                            });
+                            builder.setNegativeButton("キャンセル", null);
+                            final AlertDialog dialog = builder.show();
+
+                            binding.title.setText(datum.getUserName());
+                            Picasso.with(getContext()).load(datum.getUserImage())
+                                    .transform(new PicassoTransform()).into(binding.image);
+
+                            View[] views = {
+                                    binding.text1,
+                                    binding.text2,
+                                    binding.text3,
+                                    binding.text4,
+                            };
+
+                            for(View view : views){
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        TextView textView = (TextView) v;
+                                        if(textView.getText() != null){
+                                            String text = textView.getText().toString();
+                                            sendMessage(text);
+                                        }
+                                    }
+                                });
+                            }
+
                         }
                     });
                     window.setProfile(new View.OnClickListener() {
@@ -250,6 +301,10 @@ public class MapFragment extends BaseFragment implements
                 }
             }
         });
+    }
+
+    private void sendMessage(String text){
+
     }
 
     /**
