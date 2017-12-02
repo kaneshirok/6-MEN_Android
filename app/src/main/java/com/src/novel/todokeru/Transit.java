@@ -44,6 +44,14 @@ public class Transit {
         transit(activity, new FavoriteFragment(), bundle);
     }
 
+    public static void map(FragmentActivity activity){
+        transit(activity, new MapFragment(), null);
+    }
+
+    public static void map(FragmentActivity activity, Bundle bundle){
+        transit(activity, new MapFragment(), bundle);
+    }
+
     public static void transit(FragmentActivity activity, Fragment fragment, Bundle bundle){
 
         // フラグメントに引き渡すデータが存在する場合に引き渡すデータを設定
@@ -53,6 +61,6 @@ public class Transit {
         FragmentManager manager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.container, fragment).commit();
+        transaction.add(R.id.container, fragment).addToBackStack(null).commit();
     }
 }
