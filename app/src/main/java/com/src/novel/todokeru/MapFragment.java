@@ -393,13 +393,14 @@ public class MapFragment extends BaseFragment implements
         userPost.setUser_id(Prefs.getFloat(Const.USER_ID.name(), -1.0f));
         userPost.setUser_image("https://www.pakutaso.com/assets_c/2016/12/modellistup-thumb-600x600-28895.jpg");
         userPost.setLatitude(String.valueOf(latLng.latitude));
-        userPost.setLatitude(String.valueOf(latLng.longitude));
+        userPost.setLongitude(String.valueOf(latLng.longitude));
         api.postTop(userPost).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {}
             @Override
             public void onFailure(Call<User> call, Throwable t) {}
         });
+
 
         if (mUser != null) {
             for (Datum datum : mUser.getData()) {
