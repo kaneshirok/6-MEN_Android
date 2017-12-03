@@ -52,7 +52,17 @@ public class Transit {
         FragmentManager manager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.add(R.id.container, new MapFragment()).commit();
+        try{
+            transaction.add(R.id.container, new MapFragment()).commit();
+        } catch (IllegalStateException e){
+            try{
+                transaction.add(R.id.container, new MapFragment()).commitAllowingStateLoss();
+            } catch (Exception e1){
+
+            }
+
+        }
+
     }
 
     public static void transit(FragmentActivity activity, Fragment fragment, Bundle bundle){
