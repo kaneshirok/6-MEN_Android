@@ -5,9 +5,6 @@ import com.src.novel.todokeru.model.User;
 import com.src.novel.todokeru.post.MessagePost;
 import com.src.novel.todokeru.post.UserPost;
 
-import java.util.HashMap;
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -29,13 +26,13 @@ public interface API {
     Call<User> getTop();
 
     @POST("top")
-    Call<User> postTop(@Body HashMap<String, Object> post);
+    Call<User> postTop(@Body UserPost userPost);
 
     @GET("message")
-    Call<Message> getMessage(@Query("user_id") int user_id);
+    Call<Message> getMessage(@Query("user_id") float user_id);
 
     @POST("message")
-    Call<User> postMessage(@Body HashMap<String, String> post);
+    Call<User> postMessage(@Body MessagePost messagePost);
 
     @POST("tags")
     Call<User> getTags();

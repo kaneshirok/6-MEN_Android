@@ -1,25 +1,29 @@
 package com.src.novel.todokeru.post;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 /**
  * Created by pdc-k-kamiya on 2017/12/03.
  */
 
 public class MessagePost {
-    private int user_id;
+    @Expose
+    private float user_id;
+    @Expose
     private int send_user_id;
+    @Expose
     private String message;
 
     public MessagePost() {
         message = null;
     }
 
-    public int getUser_id() {
+    public float getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(float user_id) {
         this.user_id = user_id;
     }
 

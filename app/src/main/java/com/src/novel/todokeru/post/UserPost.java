@@ -10,7 +10,7 @@ public class UserPost {
     private String latitude;
     private String longitude;
     private int tag_id;
-    private int user_id;
+    private float user_id;
     private String tag_name;
     private String user_name;
     private String user_image;
@@ -72,11 +72,11 @@ public class UserPost {
         this.user_image = user_image;
     }
 
-    public int getUser_id() {
+    public float getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(float user_id) {
         this.user_id = user_id;
     }
 

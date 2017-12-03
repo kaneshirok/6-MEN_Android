@@ -52,6 +52,7 @@ import com.src.novel.todokeru.databinding.MessageSendBinding;
 import com.src.novel.todokeru.model.Datum;
 import com.src.novel.todokeru.model.User;
 import com.src.novel.todokeru.post.MessagePost;
+import com.src.novel.todokeru.post.UserPost;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -61,6 +62,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 import static android.content.ContentValues.TAG;
 import static android.databinding.DataBindingUtil.inflate;
@@ -317,12 +319,16 @@ public class MapFragment extends BaseFragment implements
         MessagePost messagePost = new MessagePost();
         messagePost.setMessage(text);
         messagePost.setSend_user_id(datum.getUserId());
-        messagePost.setUser_id(Prefs.getInt(Const.USER_ID.name(), -1));
+        messagePost.setUser_id(Prefs.getFloat(Const.USER_ID.name(), -1));
         api.postMessage(messagePost).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {}
+            public void onResponse(Call<User> call, Response<User> response) {
+                Timber.d("LOG = %s", response.body());
+            }
             @Override
-            public void onFailure(Call<User> call, Throwable t) {}
+            public void onFailure(Call<User> call, Throwable t) {
+                Timber.e(t);
+            }
         });
     }
 
@@ -380,6 +386,20 @@ public class MapFragment extends BaseFragment implements
         LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, mGoogleMap.getMaxZoomLevel() - 1));
         mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("現在地"));
+
+        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(API.BASE_URL).build();
+        API api = retrofit.create(API.class);
+        UserPost userPost = new UserPost();
+        userPost.setUser_id(Prefs.getFloat(Const.USER_ID.name(), -1.0f));
+        userPost.setUser_image("https://www.pakutaso.com/assets_c/2016/12/modellistup-thumb-600x600-28895.jpg");
+        userPost.setLatitude(String.valueOf(latLng.latitude));
+        userPost.setLatitude(String.valueOf(latLng.longitude));
+        api.postTop(userPost).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {}
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {}
+        });
 
         if (mUser != null) {
             for (Datum datum : mUser.getData()) {

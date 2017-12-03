@@ -44,6 +44,11 @@ public class SearchPopupWindow extends BasePopupWindow {
         };
         int i = 0;
         for (Datum datum : user.getData()) {
+
+            if(images.length <= i){
+                continue;
+            }
+
             images[i].setTag(datum);
             Picasso.with(context).load(datum.getUserImage())
                     .transform(new PicassoTransform()).into(images[i]);
