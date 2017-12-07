@@ -390,10 +390,20 @@ public class MapFragment extends BaseFragment implements
         Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(API.BASE_URL).build();
         API api = retrofit.create(API.class);
         UserPost userPost = new UserPost();
-        userPost.setUser_id(Prefs.getFloat(Const.USER_ID.name(), -1.0f));
-        userPost.setUser_image("https://www.pakutaso.com/assets_c/2016/12/modellistup-thumb-600x600-28895.jpg");
-        userPost.setLatitude(String.valueOf(latLng.latitude));
-        userPost.setLongitude(String.valueOf(latLng.longitude));
+
+        if (mUser != null) {
+            userPost.setUser_image("https://www.pakutaso.com/assets_c/2016/12/modellistup-thumb-600x600-28895.jpg");
+            userPost.setLatitude(String.valueOf(latLng.latitude));
+            userPost.setLongitude(String.valueOf(latLng.longitude));
+            userPost.setUser_id(mUser.getData().get(0).getUserId());
+            userPost.setUser_name(mUser.getData().get(0).getUserName());
+            userPost.setUser_image(mUser.getData().get(0).getUserImage());
+        }else {
+            userPost.setUser_id(Prefs.getFloat(Const.USER_ID.name(), -1.0f));
+            userPost.setUser_image("https://www.pakutaso.com/assets_c/2016/12/modellistup-thumb-600x600-28895.jpg");
+            userPost.setLatitude(String.valueOf(latLng.latitude));
+            userPost.setLongitude(String.valueOf(latLng.longitude));
+        }
         api.postTop(userPost).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {}
